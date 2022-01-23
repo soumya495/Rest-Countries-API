@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { GlobalContextProvider } from './context/GlobalContext'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+
+import Header from './components/Header'
+import Home from './components/Home/Home'
+import Country from './components/Country'
+import PageNotFound from './components/PageNotFound'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <GlobalContextProvider>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/country/:countryname' element={<Country />} />
+          <Route path='/notfound' element={<PageNotFound />} />
+          <Route path='/*' element={<PageNotFound />} />
+        </Routes>
+        <ScrollToTop />
+      </Router>
+    </GlobalContextProvider>
+  )
 }
 
-export default App;
+export default App
